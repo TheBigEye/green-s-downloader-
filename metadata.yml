@@ -1,0 +1,8 @@
+Version: 1.0.1.0
+FileDescription: Download YouTube Videos
+InternalName: pytubeget
+OriginalFilename: main.exe
+ProductName: PyTubeGet
+Translation:
+  - langID: 0
+    charsetID: 1200
