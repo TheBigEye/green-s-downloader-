@@ -1,2 +1,2 @@
-pytubefix>=8.7.0
+pytubefix>=8.8.1
 pillow>=11.0.0
