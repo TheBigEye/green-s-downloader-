@@ -1,0 +1,20 @@
+
+PyTubeGet v1.0.2
+================
+
+- Fixed a critical issue that prevented the program from running via
+  the .exe file, as it was internally still attempting to load the 
+  window icon from 'resources' instead of using the icon embedded 
+  within the executable
+
+- Fixed an issue where the progress bar was not being used or updated 
+  when downloading playlists
+
+- Fixed an issue where video files downloaded from a playlist did not 
+  have the .mp4 extension at the end of their name
+
+
+PyTubeGet v1.0.1
+================
+
+-- INITIAL RELEASE --

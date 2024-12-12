@@ -6,10 +6,19 @@ import threading
 import time
 from PIL import Image, ImageTk
 import os
+import sys
 
 class App:
     def __init__(self, root):
-        self.ico = Image.open('./resources/icon.png')
+
+        if hasattr(sys, '_MEIPASS'):
+            base_path = sys._MEIPASS
+        else:
+            base_path = os.path.abspath(".")
+
+        icon_path = os.path.join(base_path, 'resources', 'icon.png')
+
+        self.ico = Image.open(icon_path)
         self.photo = ImageTk.PhotoImage(self.ico)
 
         self.font_family = "Segoe UI"
@@ -225,7 +234,7 @@ class App:
     def download_playlist(self, link):
         playlist = Playlist(link)
         total_videos = len(playlist.videos)
-        self.status_var.set(f"{playlist.title} ({total_videos} videos)")
+        self.status_var.set(f"Downloading {playlist.title} ({total_videos} videos)")
 
         for i, video in enumerate(playlist.videos, 1):
             try:
@@ -238,13 +247,21 @@ class App:
 
                 stream.download(
                     output_path=self.download_folder,
-                    filename=f"{i}. {video.title}"
+                    filename=f"{i} - {video.title}.mp4"
                 )
+
+                # Update manually the progress :(
+                percentage = (i / total_videos) * 100
+                self.percentage_var.set(f"{percentage:.1f}%")
+                self.target_angle = 360 * (percentage / 100)
+                self.root.after(16, self.animate_progress)
+
             except Exception as e:
                 self.status_var.set(f"Error downloading {video.title}: {e}")
 
         self.status_var.set("Playlist download complete!")
         self.show_widgets()
+
 
     def download_channel(self, link):
         channel = Channel(link)

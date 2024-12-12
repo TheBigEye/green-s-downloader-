@@ -26,10 +26,10 @@ GOTO :MAIN
 :PRE_CLEAN
 
 ECHO [i] Pre-cleaning old build resources ...
-RD /Q /S "%PROJECT_PATH%\build" > NUL 2>&1
-DEL /Q /F "%PROJECT_PATH%\metadata.rc" > NUL 2>&1
-DEL /Q /F "%PROJECT_PATH%\main.spec" > NUL 2>&1
-DEL /Q /F "%PROJECT_PATH%\main.exe" > NUL 2>&1
+RD /Q /S "build" > NUL 2>&1
+DEL /Q /F "metadata.rc" > NUL 2>&1
+DEL /Q /F "main.spec" > NUL 2>&1
+DEL /Q /F "main.exe" > NUL 2>&1
 PING -N 3 127.0.0.1 > NUL
 
 EXIT /B 0
@@ -41,9 +41,9 @@ EXIT /B 0
 ECHO [i] Compiling from python to a native executable ...
 
 :: Create the fixed version file for the .exe
-create-version-file "%PROJECT_PATH%\metadata.yml" --outfile "%PROJECT_PATH%\metadata.rc"
+create-version-file "metadata.yml" --outfile "metadata.rc"
 
-pyinstaller --clean --onefile --windowed --noupx --distpath "%PROJECT_PATH%" --specpath "%PROJECT_PATH%" --workpath "%PROJECT_PATH%\build" --version-file "%PROJECT_PATH%\metadata.rc" --icon "%PROJECT_PATH%\resources\icon.ico" --add-data "%PROJECT_PATH%\resources\*;." "%PROJECT_PATH%\main.py"
+pyinstaller --clean --onefile --windowed --noupx --distpath "./" --specpath "./" --workpath "build" --version-file "metadata.rc" --icon "resources/icon.ico" --add-data "resources/icon.png;resources" "main.py"
 
 PING -N 3 127.0.0.1 > NUL
 
@@ -54,9 +54,9 @@ EXIT /B 0
 :POST_CLEAN
 
 ECHO [i] Post-cleaning build resources ...
-RD /Q /S "%PROJECT_PATH%\build" > NUL 2>&1
-DEL /Q /F "%PROJECT_PATH%\metadata.rc" > NUL 2>&1
-DEL /Q /F "%PROJECT_PATH%\main.spec" > NUL 2>&1
+RD /Q /S "build" > NUL 2>&1
+DEL /Q /F "metadata.rc" > NUL 2>&1
+DEL /Q /F "main.spec" > NUL 2>&1
 PING -N 3 127.0.0.1 > NUL
 
 EXIT /B 0
